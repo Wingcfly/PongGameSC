@@ -1,3 +1,4 @@
+
 /*
  * PONG GAME REQUIREMENTS
  * This simple "tennis like" game features two paddles and a ball, 
@@ -61,7 +62,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerOneHeight = 50;
 
 	/** Player 2's paddle: position and size */
-	private int playerTwoX = 480;
+	private int playerTwoX = 480; // Doi chieu dai cua 2 thanh chan bang nhau
 	private int playerTwoY = 200;
 	private int playerTwoWidth = 10;
 	private int playerTwoHeight = 50;
@@ -149,7 +150,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				// is it going to miss the paddle?
 				if (nextBallTop > playerOneBottom || nextBallBottom < playerOneTop) {
 
-					playerTwoScore++; // When nextBallLeft < playerOneRight: playerOneScore score, not playerOne
+					playerTwoScore++; // When nextBallLeft < playerOneRight:
+										// playerOneScore score, not playerOne
 
 					// Player 2 Win, restart the game
 					if (playerTwoScore == 3) {
@@ -222,11 +224,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int playerTwoLeft = playerTwoX;
 
 			// draw dashed line down center
+			g.setColor(Color.GREEN);// Fix duong lane trung tam thanh mau xanh
 			for (int lineY = 0; lineY < getHeight(); lineY += 50) {
 				g.drawLine(250, lineY, 250, lineY + 25);
 			}
 
 			// draw "goal lines" on each side
+			g.setColor(Color.GRAY);// Fix 2 duong bien mau xam
 			g.drawLine(playerOneRight, 0, playerOneRight, getHeight());
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
 
@@ -305,7 +309,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
 			wPressed = false;
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			sPressed = false; //fix wPressed => sPressed to press S to down paddle
+			sPressed = false; // fix wPressed => sPressed to press S to down
+								// paddle
 		}
 	}
 
