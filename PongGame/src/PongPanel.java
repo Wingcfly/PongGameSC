@@ -309,8 +309,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
 			wPressed = false;
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			wPressed = false; // fix wPressed => sPressed to press S to down
-								// paddle
+			sPressed = false; // nhấn nút S để di chuyển thanh chắn của Player 2 xuống 
 		}
 	}
 
