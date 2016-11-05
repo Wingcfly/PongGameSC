@@ -176,6 +176,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					if (playerOneScore == 3) {
 						playing = false;
 						gameOver = true;
+						playerOneScore=0;
+						playerTwoScore=0;
 					}
 					ballX = 200;
 					ballY = 200;
