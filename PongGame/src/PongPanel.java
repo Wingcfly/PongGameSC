@@ -1,4 +1,3 @@
-
 /*
  * PONG GAME REQUIREMENTS
  * This simple "tennis like" game features two paddles and a ball, 
@@ -278,7 +277,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		if (showTitleScreen) {
-			if (e.getKeyChar() == 'p') {
+			if (e.getKeyCode() == KeyEvent.VK_P) { //nhấn phím P không phân biệt hoa hay thường để bắt đầu chương trình
 				showTitleScreen = false;
 				playing = true;
 			}
