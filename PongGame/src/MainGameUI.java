@@ -30,5 +30,6 @@ public class MainGameUI extends JFrame{
     public static void main(String[] args) {
        MainGameUI mainFrame = new MainGameUI();
        mainFrame.setVisible(true);
+       mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }
