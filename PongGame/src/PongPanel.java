@@ -48,7 +48,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean sPressed;
 
 	/** The ball: position, diameter */
-	private int ballX = 240; //quả bóng di chuyển từ vị trí trung tâm khi bắt đầu game 
+	private int ballX = 240; //qu��� b��ng di chuy���n t��� v��� tr�� trung t��m khi b���t �����u game 
 	private int ballY = 240; // ... //
 	private int diameter = 20;
 	private int ballDeltaX = -1;
@@ -158,12 +158,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 						playerOneScore =0;
 						playerTwoScore =0;
 					}
-					ballX = 240; //quả bóng di chuyển từ vị trí trung tâm khi bắt đầu game
+					ballX = 240; //qu��� b��ng di chuy���n t��� v��� tr�� trung t��m khi b���t �����u game
 					ballY = 240; //...
 				} else {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
-					ballDeltaX *= -1; // bóng chạm vào thanh chắn của player 1 sẽ bật lại 
+					ballDeltaX *= -1; // b��ng ch���m v��o thanh ch���n c���a player 1 s��� b���t l���i 
 				}
 			}
 
@@ -181,13 +181,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 						playerOneScore =0;
 						playerTwoScore =0;
 					}
-					ballX = 240; //quả bóng di chuyển từ vị trí trung tâm khi bắt đầu game
+					ballX = 240; //qu��� b��ng di chuy���n t��� v��� tr�� trung t��m khi b���t �����u game
 					ballY = 240; //...
 				} else {
 
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
-					ballDeltaX *= -1; // bóng chạm vào thanh chắn của player 2 sẽ bật lại 
+					ballDeltaX *= -1; // b��ng ch���m v��o thanh ch���n c���a player 2 s��� b���t l���i 
 				}
 			}
 
@@ -214,6 +214,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.drawString("Pong Game", 130, 100);
 
 			// FIXME Wellcome message below show smaller than game title
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 			g.drawString("Press 'P' to play.", 175, 400);
 		} else if (playing) {
 
@@ -277,7 +278,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		if (showTitleScreen) {
-			if (e.getKeyCode() == KeyEvent.VK_P) { //nhấn phím P không phân biệt hoa hay thường để bắt đầu chương trình
+			if (e.getKeyCode() == KeyEvent.VK_P) { //nhan p hay P deu vao game
 				showTitleScreen = false;
 				playing = true;
 			}
@@ -296,7 +297,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			showTitleScreen = true;
 			playerOneY = 250;
 			playerTwoY = 250;
-			ballX = 240; //quả bóng di chuyển từ vị trí trung tâm khi bắt đầu game
+			ballX = 240; //qu��� b��ng di chuy���n t��� v��� tr�� trung t��m khi b���t �����u game
 			ballY = 240; //...
 		}
 	}
@@ -309,7 +310,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
 			wPressed = false;
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			sPressed = false; // nhấn nút S để di chuyển thanh chắn của Player 2 xuống 
+			sPressed = false; // nh���n n��t S ����� di chuy���n thanh ch���n c���a Player 2 xu���ng 
 		}
 	}
 
