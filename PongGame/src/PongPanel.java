@@ -237,6 +237,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
 
 			// draw the scores
+			g.setColor(Color.BLUE);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100); // Player 1
 																	// score
@@ -256,11 +257,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 			// Draw scores
 			// TODO Set Blue color
+			g.setColor(Color.BLUE);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
 			g.drawString(String.valueOf(playerTwoScore), 400, 100);
 
 			// Draw the winner name
+			g.setColor(Color.GRAY);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
 				g.drawString("Player 1 Wins!", 165, 200);
