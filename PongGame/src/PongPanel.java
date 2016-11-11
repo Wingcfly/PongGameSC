@@ -51,6 +51,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
+	ImageIcon bgoutside = new ImageIcon("Images/background.jpg");
+	
 
 	/** State on the control keys. */
 	private boolean upPressed;
@@ -228,13 +230,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		if (showTitleScreen) {
 
 			/* Show welcome screen */
-
+			g.drawImage(bgoutside.getImage(), 0, 0, 500, 500, null);
 			// Draw game title and start message
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.drawString("Pong Game", 130, 100);
-
+			
 			// FIXME Wellcome message below show smaller than game title
-			g.drawString("Press 'P' to play.", 175, 400);
+			g.setColor(Color.BLACK);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
+			g.drawString("Press 'P' to play", 130, 420);
 		} else if (playing) {
 			/* Game is playing */
 			g.drawImage(bgInGame.getImage(), 0, 0, 500, 500, null); //background trong game
