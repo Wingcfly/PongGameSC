@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
@@ -17,7 +18,7 @@ import javax.swing.JRadioButton;
  *	
  * 
  */
-public class BallColorWindow extends JFrame{
+public class BallColorWindow extends JDialog{
 	JRadioButton optWhite = new JRadioButton("White Ball");
 	JRadioButton optTennis = new JRadioButton("Tennis");
 	JRadioButton optbasketball = new JRadioButton("basketball");
@@ -34,6 +35,7 @@ public class BallColorWindow extends JFrame{
 		setTitle("BallTyle");
 		setLayout(null);
 		setLocationRelativeTo(null);
+		setModal(true);
 		
 		add(optWhite);
 		add(optTennis);
