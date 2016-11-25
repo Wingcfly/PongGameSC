@@ -75,7 +75,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int ballX = 240; // qua bong di chuyen tu vi tri trung tam khi bat
 	// dau game
 	private int ballY = 240; // ... //
-	private int diameter = 70;
+	private int diameter = 50;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 
