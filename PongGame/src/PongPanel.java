@@ -44,7 +44,7 @@ import javax.swing.Timer;
  *
  */
 
-public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseListener,MouseMotionListener {
+public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
 
 	private static final long serialVersionUID = -1097341635155021546L;
 
@@ -57,16 +57,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
 
-	
 	/** BallIcon. */
 	ImageIcon imBallWhite = new ImageIcon("./BallTypeImage/ballwhite.png");
 	ImageIcon imBasketBall = new ImageIcon("./BallTypeImage/basketball.png");
 	ImageIcon imTennisBall = new ImageIcon("./BallTypeImage/tennisball.png");
-	
+	ImageIcon imWhite = new ImageIcon();
 
 	ImageIcon bgoutside = new ImageIcon("Images/background.jpg");
-	
-
 
 	/** State on the control keys. */
 	private boolean upPressed;
@@ -76,7 +73,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	/** The ball: position, diameter */
 	private int ballX = 240; // qua bong di chuyen tu vi tri trung tam khi bat
-								// dau game
+	// dau game
 	private int ballY = 240; // ... //
 	private int diameter = 70;
 	private int ballDeltaX = -1;
@@ -100,29 +97,26 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** Player score, show on upper left and right. */
 	private int playerOneScore;
 	private int playerTwoScore;
-	
 
-	//declare Rectangle is Button
-	Rectangle rct = new Rectangle(360, 5, 100, 30);
-	//declare NumTypeball
+	// declare Rectangle is Button
+	Rectangle rctBall = new Rectangle(360, 5, 100, 30);
+	// declare NumTypeball
 	static int NumTypeBall;
-	static boolean rectin = false;
-	
-	
-	ImageIcon bgInGame = new ImageIcon("images/a.png"); //background
-
+	static boolean rectinBall = false;
+	Rectangle rctPaddles = new Rectangle(250, 5, 100, 30);
+	static int NumPaddlesColor;
+	static boolean rectinPaddles = false;
+	ImageIcon bgInGame = new ImageIcon("images/a.png"); // background
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
 
-		
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
 		addMouseListener(this);
 		addMouseMotionListener(this);
-		
 
 		// call step() 60 fps
 		Timer timer = new Timer(1000 / 60, this);
@@ -202,14 +196,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						playerTwoScore = 0;
 					}
 					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
-									// bat dau game
+					// bat dau game
 					ballY = 240; // ...
 					ballmove1 = true;
 					ballmove2 = false;
 				} else {
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 1
-										// se bat lai
+					// se bat lai
 				}
 			}
 
@@ -228,7 +222,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						playerTwoScore = 0;
 					}
 					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
-									// bat dau game
+					// bat dau game
 					ballY = 240; // ...
 					ballmove1 = false;
 					ballmove2 = true;
@@ -236,7 +230,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 2
-										// se bat lai
+					// se bat lai
 				}
 			}
 
@@ -250,7 +244,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	}
 
 	/** Paint the game screen. */
-	public void  paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
 
@@ -259,30 +253,37 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			/* Show welcome screen */
 			g.drawImage(bgoutside.getImage(), 0, 0, 500, 500, null);
 			// Draw game title and start message
-			
 			// FIXME Wellcome message below show smaller than game title
 			g.setColor(Color.BLACK);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
 			g.drawString("Press 'P' to play", 130, 420);
 		} else if (playing) {
 			/* Game is playing */
-			g.drawImage(bgInGame.getImage(), 0, 0, 500, 500, null); //background trong game
+			g.drawImage(bgInGame.getImage(), 0, 0, 500, 500, null); // background
+																	// trong
+																	// game
 
 			// set the coordinate limit
 			int playerOneRight = playerOneX + playerOneWidth;
 			int playerTwoLeft = playerTwoX;
 
 			// draw ballcolorbutton
-			if(rectin == false){
+			if (rectinBall == false) {
 				g.fillRect(360, 5, 100, 30);
 				g.setColor(Color.BLUE);
 				g.drawString("Ball Color", 380, 25);
-			}else{
+			} else {
 				g.fillRect(350, 10, 110, 40);
 				g.setColor(Color.BLUE);
 				g.drawString("Ball Color", 370, 30);
 			}
-			
+			if (rectinPaddles == false) {
+				g.setColor(Color.BLUE);
+				g.drawString("Paddles Color", 200, 25);
+			} else {
+				g.setColor(Color.BLUE);
+				g.drawString("Paddles Color", 190, 30);
+			}
 			// draw dashed line down center
 			g.setColor(Color.GREEN);// Fix duong lane trung tam thanh mau xanh
 			for (int lineY = 0; lineY < getHeight(); lineY += 50) {
@@ -295,28 +296,31 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
 
 			// draw the scores
-			g.setColor(Color.BLUE); //diem so mau xanh duong
+			g.setColor(Color.BLUE); // diem so mau xanh duong
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100); // Player 1
-																	// score
+			// score
 			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
-																	// score
+			// score
 
 			// draw the ball
 			g.setColor(Color.RED);
-			//g.fillOval(ballX, ballY, diameter, diameter);
-
-			if(NumTypeBall == 0){
-			g.drawImage(imBallWhite.getImage(),ballX, ballY, diameter, diameter, null);
-			}else if(NumTypeBall == 1){
-				g.drawImage(imBasketBall.getImage(),ballX, ballY, diameter, diameter, null);
-			}else if(NumTypeBall == 2){
-				g.drawImage(imTennisBall.getImage(),ballX, ballY, diameter, diameter, null);
+			if (NumTypeBall == 0) {
+				g.drawImage(imBallWhite.getImage(), ballX, ballY, diameter, diameter, null);
+			} else if (NumTypeBall == 1) {
+				g.drawImage(imBasketBall.getImage(), ballX, ballY, diameter, diameter, null);
+			} else if (NumTypeBall == 2) {
+				g.drawImage(imTennisBall.getImage(), ballX, ballY, diameter, diameter, null);
 			}
 
-			
-			
-
+			// color the paddles
+			if (NumPaddlesColor == 0) {
+				g.setColor(Color.WHITE);
+			} else if (NumPaddlesColor == 1) {
+				g.setColor(Color.BLUE);
+			} else if (NumPaddlesColor == 2) {
+				g.setColor(Color.RED);
+			}
 			// draw the paddles
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
@@ -349,9 +353,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	public void keyPressed(KeyEvent e) {
 		if (showTitleScreen) {
-			if (e.getKeyCode() == KeyEvent.VK_P) { // nhấn phím P không phân
-													// biệt hoa hay thường để
-													// bắt đầu chương trình
+			if (e.getKeyCode() == KeyEvent.VK_P) { // nhan phim P thuong khong
+													// chay
 				showTitleScreen = false;
 				playing = true;
 			}
@@ -371,7 +374,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			playerOneY = 250;
 			playerTwoY = 250;
 			ballX = 240; // qua bong di chuyen tu vi tri trung tam khi bat dau
-							// game
+			// game
 			ballY = 240; // ...
 		}
 	}
@@ -385,64 +388,65 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			wPressed = false;
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
 			sPressed = false; // nhấn nút S để di chuyển thanh chắn của Player 2
-								// xuống
+			// xuống
 		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-		if(rct.contains(e.getX(), e.getY())){
+		if (rctBall.contains(e.getX(), e.getY())) {
 			BallColorWindow mainWidow = new BallColorWindow();
 			mainWidow.setVisible(true);
 		}
+		if (rctPaddles.contains(e.getX(), e.getY())) {
+			PaddlesColor mainWindow = new PaddlesColor();
+			mainWindow.setVisible(true);
+		}
 	}
-		
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(rct.contains(e.getX(), e.getY())){
-			rct.setSize(100, 50);
-			rct.setBounds(360, 5, 120, 50);
-			rectin = true;
-		}else{
-			rectin = false;
+		if (rctBall.contains(e.getX(), e.getY())) {
+			rctBall.setSize(100, 50);
+			rctBall.setBounds(360, 5, 120, 50);
+			rectinBall = true;
+		} else {
+			rectinBall = false;
+		}
+		if (rctPaddles.contains(e.getX(), e.getY())) {
+			rctPaddles.setSize(100, 50);
+			rctPaddles.setBounds(200, 5, 120, 50);
+			rectinPaddles = true;
+		} else {
+			rectinPaddles = false;
 		}
 	}
-
-	
 
 }
