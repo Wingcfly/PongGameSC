@@ -78,6 +78,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int diameter = 50;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
+	
+	/** Score */
+	private int score = 10;
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
@@ -189,7 +192,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					playerTwoScore++;
 
 					// Player 2 Win, restart the game
-					if (playerTwoScore == 3) {
+					if (playerTwoScore == score) {
 						playing = false;
 						gameOver = true;
 						playerOneScore = 0;
@@ -215,7 +218,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					playerOneScore++;
 
 					// Player 1 Win, restart the game
-					if (playerOneScore == 3) {
+					if (playerOneScore == score) {
 						playing = false;
 						gameOver = true;
 						playerOneScore = 0;
