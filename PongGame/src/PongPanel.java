@@ -199,6 +199,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						gameOver = true;
 						playerOneScore = 0;
 						playerTwoScore = 0;
+						//am thanh khi player 2 thang
+						Sound.play("Sound/Victory_Fanfare.wav");
 					}
 					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
 					// bat dau game
@@ -227,6 +229,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						gameOver = true;
 						playerOneScore = 0;
 						playerTwoScore = 0;
+						//am thanh khi player 1 thang
+						Sound.play("Sound/Victory_Fanfare.wav");
 					}
 					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
 					// bat dau game
@@ -366,6 +370,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 													// chay
 				showTitleScreen = false;
 				playing = true;
+				//am thanh khi bat dau
+				Sound.play("Sound/startsound.wav");
 			}
 		} else if (playing) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
