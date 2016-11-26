@@ -80,7 +80,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int ballDeltaY = 3;
 	
 	/** Score */
-	private int score = 10;
+	private int score = 3;
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
