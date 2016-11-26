@@ -1,4 +1,3 @@
-
 /*
  * PONG GAME REQUIREMENTS
  * This simple "tennis like" game features two paddles and a ball, 
@@ -44,7 +43,8 @@ import javax.swing.Timer;
  *
  */
 
-public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
+public class PongPanel extends JPanel implements ActionListener, KeyListener,
+		MouseListener, MouseMotionListener {
 
 	private static final long serialVersionUID = -1097341635155021546L;
 
@@ -78,7 +78,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int diameter = 50;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
-	
+
 	/** Score */
 	private int score = 10;
 
@@ -109,6 +109,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	Rectangle rctPaddles = new Rectangle(250, 5, 100, 30);
 	static int NumPaddlesColor;
 	static boolean rectinPaddles = false;
+	// declare PlayerName
+	static String PlayerName1 = "#player1";
+	static String PlayerName2 = "#player2";
+
 	ImageIcon bgInGame = new ImageIcon("images/a.png"); // background
 
 	/** Construct a PongPanel. */
@@ -144,7 +148,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				playerOneY -= paddleSpeed;
 			}
 			// Move down if after moving paddle is not outside the screen
-			if (sPressed && playerOneY + playerOneHeight + paddleSpeed <= getHeight()) {
+			if (sPressed
+					&& playerOneY + playerOneHeight + paddleSpeed <= getHeight()) {
 				playerOneY += paddleSpeed;
 			}
 
@@ -154,7 +159,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				playerTwoY -= paddleSpeed;
 			}
 			// Move down if after moving paddle is not outside the screen
-			if (downPressed && playerTwoY + playerTwoHeight + paddleSpeed <= getHeight()) {
+			if (downPressed
+					&& playerTwoY + playerTwoHeight + paddleSpeed <= getHeight()) {
 				playerTwoY += paddleSpeed;
 			}
 
@@ -182,14 +188,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
 				ballDeltaY *= -1;
-				//am thanh khi cham vao vien tren vien duoi
+				// am thanh khi cham vao vien tren vien duoi
 				Sound.play("Sound/pingpongsound2.wav");
 			}
 
 			// will the ball go off the left side?
 			if (nextBallLeft < playerOneRight) {
 				// is it going to miss the paddle?
-				if (nextBallTop > playerOneBottom || nextBallBottom < playerOneTop) {
+				if (nextBallTop > playerOneBottom
+						|| nextBallBottom < playerOneTop) {
 
 					playerTwoScore++;
 
@@ -199,7 +206,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						gameOver = true;
 						playerOneScore = 0;
 						playerTwoScore = 0;
-						//am thanh khi player 2 thang
+						// am thanh khi player 2 thang
 						Sound.play("Sound/Victory_Fanfare.wav");
 					}
 					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
@@ -211,7 +218,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 1
 					// se bat lai
-					//am thanh khi cham vao paddle player 1
+					// am thanh khi cham vao paddle player 1
 					Sound.play("Sound/pingpongsound.wav");
 				}
 			}
@@ -219,7 +226,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// will the ball go off the right side?
 			if (nextBallRight > playerTwoLeft) {
 				// is it going to miss the paddle?
-				if (nextBallTop > playerTwoBottom || nextBallBottom < playerTwoTop) {
+				if (nextBallTop > playerTwoBottom
+						|| nextBallBottom < playerTwoTop) {
 
 					playerOneScore++;
 
@@ -229,7 +237,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						gameOver = true;
 						playerOneScore = 0;
 						playerTwoScore = 0;
-						//am thanh khi player 1 thang
+						// am thanh khi player 1 thang
 						Sound.play("Sound/Victory_Fanfare.wav");
 					}
 					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
@@ -242,7 +250,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 2
 					// se bat lai
-					//am thanh khi cham vao paddle player 2
+					// am thanh khi cham vao paddle player 2
 					Sound.play("Sound/pingpongsound.wav");
 				}
 			}
@@ -268,8 +276,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// Draw game title and start message
 			// FIXME Wellcome message below show smaller than game title
 			g.setColor(Color.BLACK);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));// draw playerName
+															// in the Title
+															// Screen
+			g.drawString(PlayerName1, 50, 20);
+			g.drawString(PlayerName2, 350, 20);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
 			g.drawString("Press 'P' to play", 130, 420);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+			g.drawString("Press 'N' to Config Name", 125, 450);
+
 		} else if (playing) {
 			/* Game is playing */
 			g.drawImage(bgInGame.getImage(), 0, 0, 500, 500, null); // background
@@ -279,7 +295,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// set the coordinate limit
 			int playerOneRight = playerOneX + playerOneWidth;
 			int playerTwoLeft = playerTwoX;
-
+			// draw playerName in the Playing Screen
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));// draw playerName
+															// in the Title
+															// Screen
+			g.drawString(PlayerName1, 50, 140); // can Use the photoShop to
+												// Delete Name Trump and Clinton
+												// in Backgound and replace with
+												// Name of two player
+			g.drawString(PlayerName2, 350, 140);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
 			// draw ballcolorbutton
 			if (rectinBall == false) {
 				g.fillRect(360, 5, 100, 30);
@@ -319,11 +344,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// draw the ball
 			g.setColor(Color.RED);
 			if (NumTypeBall == 0) {
-				g.drawImage(imBallWhite.getImage(), ballX, ballY, diameter, diameter, null);
+				g.drawImage(imBallWhite.getImage(), ballX, ballY, diameter,
+						diameter, null);
 			} else if (NumTypeBall == 1) {
-				g.drawImage(imBasketBall.getImage(), ballX, ballY, diameter, diameter, null);
+				g.drawImage(imBasketBall.getImage(), ballX, ballY, diameter,
+						diameter, null);
 			} else if (NumTypeBall == 2) {
-				g.drawImage(imTennisBall.getImage(), ballX, ballY, diameter, diameter, null);
+				g.drawImage(imTennisBall.getImage(), ballX, ballY, diameter,
+						diameter, null);
 			}
 
 			// color the paddles
@@ -350,9 +378,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// Draw the winner name
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
-				g.drawString("Player 1 Wins!", 165, 200);
+				g.drawString(PlayerName1 + " Wins!", 165, 200);
 			} else {
-				g.drawString("Player 2 Wins!", 165, 200);
+				g.drawString(PlayerName2 + " Wins!", 165, 200);
 			}
 
 			// Draw Restart message
@@ -370,8 +398,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 													// chay
 				showTitleScreen = false;
 				playing = true;
-				//am thanh khi bat dau
+				// am thanh khi bat dau
 				Sound.play("Sound/startsound.wav");
+			}
+			if (e.getKeyCode() == KeyEvent.VK_N) { // nhan phim N De set
+													// NamePlayer
+				PlayerNameWindow mainWidow = new PlayerNameWindow();
+				mainWidow.setVisible(true);
 			}
 		} else if (playing) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
