@@ -182,6 +182,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
 				ballDeltaY *= -1;
+				//am thanh khi cham vao vien tren vien duoi
+				Sound.play("Sound/pingpongsound2.wav");
 			}
 
 			// will the ball go off the left side?
@@ -207,6 +209,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 1
 					// se bat lai
+					//am thanh khi cham vao paddle player 1
+					Sound.play("Sound/pingpongsound.wav");
 				}
 			}
 
@@ -234,6 +238,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 2
 					// se bat lai
+					//am thanh khi cham vao paddle player 2
+					Sound.play("Sound/pingpongsound.wav");
 				}
 			}
 
