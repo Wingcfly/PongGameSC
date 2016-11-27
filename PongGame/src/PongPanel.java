@@ -58,7 +58,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	private Color backgroundColor = Color.BLACK;
 
 	/** BallIcon. */
-	ImageIcon imBallWhite = new ImageIcon("./BallTypeImage/ballwhite.png");
+	ImageIcon imAmericanWhite = new ImageIcon("./BallTypeImage/AmericanBall.png");
 	ImageIcon imBasketBall = new ImageIcon("./BallTypeImage/basketball.png");
 	ImageIcon imTennisBall = new ImageIcon("./BallTypeImage/tennisball.png");
 	ImageIcon imWhite = new ImageIcon();
@@ -113,6 +113,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	// declare PlayerName
 	static String PlayerName1 = "#player1";
 	static String PlayerName2 = "#player2";
+	static String plName1;
+	static String plName2;
 
 
 	/** Construct a PongPanel. */
@@ -199,7 +201,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 						|| nextBallBottom < playerOneTop) {
 
 					playerTwoScore++;
-
+					Sound.play("Sound/pingpongsound.wav"); //ghi diem se co am thanh
 					// Player 2 Win, restart the game
 					if (playerTwoScore == score) {
 						playing = false;
@@ -219,7 +221,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 1
 					// se bat lai
 					// am thanh khi cham vao paddle player 1
-					Sound.play("Sound/pingpongsound.wav");
+					Sound.play("Sound/pingpongsound2.wav");
 				}
 			}
 
@@ -230,7 +232,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 						|| nextBallBottom < playerTwoTop) {
 
 					playerOneScore++;
-
+					Sound.play("Sound/pingpongsound.wav");
 					// Player 1 Win, restart the game
 					if (playerOneScore == score) {
 						playing = false;
@@ -251,7 +253,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 2
 					// se bat lai
 					// am thanh khi cham vao paddle player 2
-					Sound.play("Sound/pingpongsound.wav");
+					Sound.play("Sound/pingpongsound2.wav");
 				}
 			}
 
@@ -286,19 +288,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 			g.drawImage(bgInGame.getImage(), 0, 0, 500, 500, null); // background
 																	// trong
 																	// game
-
 			// set the coordinate limit
 			int playerOneRight = playerOneX + playerOneWidth;
 			int playerTwoLeft = playerTwoX;
 			// draw playerName in the Playing Screen
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));// draw playerName
+			g.setColor(Color.white);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 30));// draw playerName
 															// in the Title
 															// Screen
-			g.drawString(PlayerName1, 50, 140); // can Use the photoShop to
-												// Delete Name Trump and Clinton
-												// in Backgound and replace with
-												// Name of two player
-			g.drawString(PlayerName2, 350, 140);
+			g.drawString(PlayerName1, 50, 425);
+			g.drawString(PlayerName2, 320, 425);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
 			// draw ballcolorbutton
 			if (rectinBall == false) {
@@ -339,7 +338,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 			// draw the ball
 			g.setColor(Color.RED);
 			if (NumTypeBall == 0) {
-				g.drawImage(imBallWhite.getImage(), ballX, ballY, diameter,
+				g.drawImage(imAmericanWhite.getImage(), ballX, ballY, diameter,
 						diameter, null);
 			} else if (NumTypeBall == 1) {
 				g.drawImage(imBasketBall.getImage(), ballX, ballY, diameter,
