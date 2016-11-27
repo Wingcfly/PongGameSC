@@ -63,7 +63,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	ImageIcon imTennisBall = new ImageIcon("./BallTypeImage/tennisball.png");
 	ImageIcon imWhite = new ImageIcon();
 
-	ImageIcon bgoutside = new ImageIcon("Images/background.jpg");
+	ImageIcon bgOutGame = new ImageIcon("Images/screen.jpg"); // background in showscreen
+	ImageIcon bgInGame = new ImageIcon("Images/playing.png"); // background in game
 
 	/** State on the control keys. */
 	private boolean upPressed;
@@ -113,7 +114,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	static String PlayerName1 = "#player1";
 	static String PlayerName2 = "#player2";
 
-	ImageIcon bgInGame = new ImageIcon("images/a.png"); // background
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
@@ -272,20 +272,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 		if (showTitleScreen) {
 
 			/* Show welcome screen */
-			g.drawImage(bgoutside.getImage(), 0, 0, 500, 500, null);
+			g.drawImage(bgOutGame.getImage(), 0, 0, 500, 500, null);
 			// Draw game title and start message
 			// FIXME Wellcome message below show smaller than game title
 			g.setColor(Color.BLACK);
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));// draw playerName
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 30));// draw playerName
 															// in the Title
 															// Screen
-			g.drawString(PlayerName1, 50, 20);
-			g.drawString(PlayerName2, 350, 20);
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
-			g.drawString("Press 'P' to play", 130, 420);
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-			g.drawString("Press 'N' to Config Name", 125, 450);
-
+			g.drawString(PlayerName1, 75, 80);
+			g.drawString(PlayerName2, 300, 80);
 		} else if (playing) {
 			/* Game is playing */
 			g.drawImage(bgInGame.getImage(), 0, 0, 500, 500, null); // background
