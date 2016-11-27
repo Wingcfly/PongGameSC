@@ -300,6 +300,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 			g.drawString(PlayerName2, 320, 425);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
 			// draw ballcolorbutton
+			g.setColor(Color.BLACK);
 			if (rectinBall == false) {
 				g.fillRect(360, 5, 100, 30);
 				g.setColor(Color.BLUE);
@@ -311,10 +312,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 			}
 			if (rectinPaddles == false) {
 				g.setColor(Color.BLUE);
-				g.drawString("Paddles Color", 200, 25);
+				g.drawString("Paddles Color", 30, 25);
 			} else {
 				g.setColor(Color.BLUE);
-				g.drawString("Paddles Color", 190, 30);
+				g.drawString("Paddles Color", 20, 30);
 			}
 			// draw dashed line down center
 			g.setColor(Color.GREEN);// Fix duong lane trung tam thanh mau xanh
@@ -484,7 +485,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 		}
 		if (rctPaddles.contains(e.getX(), e.getY())) {
 			rctPaddles.setSize(100, 50);
-			rctPaddles.setBounds(200, 5, 120, 50);
+			rctPaddles.setBounds(20, 5, 120, 50);
 			rectinPaddles = true;
 		} else {
 			rectinPaddles = false;
