@@ -54,7 +54,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	private Color backgroundColor = Color.BLACK;
 
 	/** BallIcon. */
-	ImageIcon imAmericanWhite = new ImageIcon("./BallTypeImage/AmericanBall.png");
+	ImageIcon imAmericanBall = new ImageIcon("./BallTypeImage/AmericanBall.png");
 	ImageIcon imBasketBall = new ImageIcon("./BallTypeImage/basketball.png");
 	ImageIcon imTennisBall = new ImageIcon("./BallTypeImage/tennisball.png");
 	ImageIcon imWhite = new ImageIcon();
@@ -410,7 +410,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 			// draw the ball
 			g.setColor(Color.RED);
 			if (NumTypeBall == 0) {
-				g.drawImage(imAmericanWhite.getImage(), ballX, ballY, diameter,
+				g.drawImage(imAmericanBall.getImage(), ballX, ballY, diameter,
 						diameter, null);
 			} else if (NumTypeBall == 1) {
 				g.drawImage(imBasketBall.getImage(), ballX, ballY, diameter,

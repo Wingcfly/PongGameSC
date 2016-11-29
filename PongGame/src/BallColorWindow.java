@@ -19,13 +19,13 @@ import javax.swing.JRadioButton;
  * 
  */
 public class BallColorWindow extends JDialog{
-	JRadioButton optWhite = new JRadioButton("White Ball");
+	JRadioButton optAmericanBall = new JRadioButton("American Ball");
 	JRadioButton optTennis = new JRadioButton("Tennis");
 	JRadioButton optbasketball = new JRadioButton("basketball");
-	JLabel lblWhite = new JLabel();
+	JLabel lblAmericanBall = new JLabel();
 	JLabel lblBasket = new JLabel();
 	JLabel lblTennis = new JLabel();
-	ImageIcon imWhite = new ImageIcon("./BallTypeImage/ballwhite.png");
+	ImageIcon imAmericanBall = new ImageIcon("./BallTypeImage/AmericanBall.png");
 	ImageIcon imTennis = new ImageIcon("./BallTypeImage/tennisball.png");
 	ImageIcon imbasketball = new ImageIcon("./BallTypeImage/basketball.png");
 	ButtonGroup btnGroup = new ButtonGroup();
@@ -37,23 +37,23 @@ public class BallColorWindow extends JDialog{
 		setLocationRelativeTo(null);
 		setModal(true);
 		
-		add(optWhite);
+		add(optAmericanBall);
 		add(optTennis);
 		add(optbasketball);
-		add(lblWhite);
+		add(lblAmericanBall);
 		add(lblBasket);
 		add(lblTennis);
 		add(btnChoose);
 		
-		lblWhite.setIcon(imWhite);
+		lblAmericanBall.setIcon(imAmericanBall);
 		lblTennis.setIcon(imTennis);
 		lblBasket.setIcon(imbasketball);
-		btnGroup.add(optWhite);
+		btnGroup.add(optAmericanBall);
 		btnGroup.add(optTennis);
 		btnGroup.add(optbasketball);
 		
-		lblWhite.setBounds(10, 10, 50, 50);
-		optWhite.setBounds(60, 20, 100, 30);
+		lblAmericanBall.setBounds(10, 10, 50, 50);
+		optAmericanBall.setBounds(60, 20, 100, 30);
 		
 		
 		lblBasket.setBounds(10, 70, 50, 50);
@@ -65,14 +65,14 @@ public class BallColorWindow extends JDialog{
 		btnChoose.setBounds(350, 190, 100, 30);
 		
 		//default option
-		optWhite.setSelected(true);
+		optAmericanBall.setSelected(true);
 		
 		btnChoose.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(optWhite.isSelected() == true)
+				if(optAmericanBall.isSelected() == true)
 				{
 					PongPanel.NumTypeBall = 0;
 				}else if(optbasketball.isSelected() == true){
