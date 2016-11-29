@@ -15,11 +15,9 @@
  *  
  *  Version: 0.5
  */
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,12 +26,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -53,6 +48,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	private boolean gameOver;
 	private boolean ballmove1;
 	private boolean ballmove2;
+	private int speedball = 3;
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
@@ -81,7 +77,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	private int ballDeltaY = 3;
 
 	/** Score */
-	private int score = 3;
+	private int score = 50;
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
@@ -105,7 +101,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	// declare Rectangle is Button
 	Rectangle rctBall = new Rectangle(360, 5, 100, 30);
 	// declare NumTypeball
-	static int NumTypeBall;
+	static int NumTypeBall=0;
 	static boolean rectinBall = false;
 	Rectangle rctPaddles = new Rectangle(250, 5, 100, 30);
 	static int NumPaddlesColor;
@@ -113,8 +109,59 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 	// declare PlayerName
 	static String PlayerName1 = "#player1";
 	static String PlayerName2 = "#player2";
-	static String plName1;
-	static String plName2;
+	// declare Random
+	private int randomTime = ThreadLocalRandom.current().nextInt(1,5)*1000;
+	private int xObjectFL;
+	private int yObjectFL;
+	private int countdown=0;
+	private double xcenterA,ycenterA, xcenterB,ycenterB;
+	private boolean flagdrawObjectFL = false;
+	private boolean flagHadObjectFL = false;
+	private static int fps = 1000/60;
+	private int typeContentFL = ThreadLocalRandom.current().nextInt(1,3);
+	// declare IconImage FOR CONTENT	
+	ImageIcon imFastContent = new ImageIcon("./IconContent/fastIcon.png");
+	ImageIcon imSlowContent= new ImageIcon("./IconContent/slowIcon.png");
+	// call step() 60 fps
+			Timer timer = new Timer(fps, this);
+	
+	private Timer timerofObjectF = new Timer(1000/60, new  ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			timerofObjectL.stop();
+			countdown = countdown-10;
+			if(countdown == -10){
+				timer.setDelay(10);
+				paddleSpeed = 3;
+			}else if(countdown<=-5000){
+				timer.setDelay(1000/60);
+				paddleSpeed = 5;
+				countdown=0;
+				timerofObjectF.stop();
+			}
+			
+		}
+	});
+	private Timer timerofObjectL = new Timer(1000/60, new  ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			timerofObjectF.stop();
+			countdown = countdown-10;
+			if(countdown == -10){
+				timer.setDelay(28);
+			}else if(countdown<=-5000){
+				timer.setDelay(1000/60);
+				countdown=0;
+				timerofObjectL.stop();
+			}
+			
+		}
+	});
+	
 
 
 	/** Construct a PongPanel. */
@@ -126,9 +173,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 		addKeyListener(this);
 		addMouseListener(this);
 		addMouseMotionListener(this);
-
-		// call step() 60 fps
-		Timer timer = new Timer(1000 / 60, this);
+		
+		
+	
 		timer.start();
 	}
 
@@ -254,12 +301,36 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 					// se bat lai
 					// am thanh khi cham vao paddle player 2
 					Sound.play("Sound/pingpongsound2.wav");
-				}
-			}
+				} 
+			} 
 
 			// move the ball
 			ballX += ballDeltaX;
 			ballY += ballDeltaY;
+		}
+		//RandomTime
+		randomTime = randomTime-10;
+		if(randomTime<=0){
+			if(flagdrawObjectFL == false){
+				if(flagHadObjectFL == true){
+					
+				}else{
+					xObjectFL = ThreadLocalRandom.current().nextInt(50,450+1);
+					yObjectFL = ThreadLocalRandom.current().nextInt(0,470+1);
+					flagdrawObjectFL =true;
+					xcenterB = xObjectFL+diameter/2;
+					ycenterB = yObjectFL+diameter/2;
+					
+				}
+				
+			} 
+				if (randomTime < -5000) {
+					randomTime = ThreadLocalRandom.current().nextInt(1, 5) * 1000;
+					flagdrawObjectFL = false;
+					flagHadObjectFL = false;
+					typeContentFL = ThreadLocalRandom.current().nextInt(1,3);
+				}
+			
 		}
 
 		// stuff has moved, tell this JPanel to repaint itself
@@ -348,7 +419,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 				g.drawImage(imTennisBall.getImage(), ballX, ballY, diameter,
 						diameter, null);
 			}
-
+			xcenterA = ballX+diameter/2;
+			ycenterA = ballY+diameter/2;
 			// color the paddles
 			if (NumPaddlesColor == 0) {
 				g.setColor(Color.WHITE);
@@ -360,6 +432,31 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,
 			// draw the paddles
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
+			
+			// draw the ObjectFL
+			if(flagdrawObjectFL == true){
+				//g.fillOval(xObjectFL, yObjectFL, diameter, diameter);
+				if(typeContentFL == 1){
+					g.drawImage(imFastContent.getImage(), xObjectFL, yObjectFL, diameter,
+							diameter, null);
+					if( Math.sqrt(Math.pow(xcenterA-xcenterB, 2)+Math.pow(ycenterA-ycenterB, 2)) <= diameter){
+						flagdrawObjectFL = false;
+						flagHadObjectFL = true;
+						timerofObjectF.start();
+					}
+				}else{
+					g.drawImage(imSlowContent.getImage(), xObjectFL, yObjectFL, diameter,
+							diameter, null);
+					if( Math.sqrt(Math.pow(xcenterA-xcenterB, 2)+Math.pow(ycenterA-ycenterB, 2)) <= diameter){
+						flagdrawObjectFL = false;
+						flagHadObjectFL = true;
+						timerofObjectL.start();
+					}
+				}
+				
+				
+			}
+			
 		} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
