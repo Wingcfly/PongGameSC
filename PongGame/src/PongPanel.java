@@ -19,6 +19,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +51,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private boolean ballmove2;
 	private int speedball = 3;
 
+	private int xRandom;
+	private int yRandom;
+	private int timeDisplayMPlus;
+	private int diameterMPlus = 50;
+	private boolean showRandom;
+	private int iOptionRandom = 1; //cac tuy chon khi dung vao minus & plus
+	private int iDimension = 1; //chieu di cua ball
+
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
 
@@ -64,6 +73,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	ImageIcon bgInGame = new ImageIcon("Images/playing.png"); // background in
 																// game
 
+	ImageIcon imMinus = new ImageIcon("Images/minus.png");
+	ImageIcon imPlus = new ImageIcon("Images/plus.png");
+
 	/** State on the control keys. */
 	private boolean upPressed;
 	private boolean downPressed;
@@ -71,9 +83,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private boolean sPressed;
 
 	/** The ball: position, diameter */
-	private int ballX = 240; // qua bong di chuyen tu vi tri trung tam khi bat
+	private int ballX = 225; // qua bong di chuyen tu vi tri trung tam khi bat
 	// dau game
-	private int ballY = 240; // ... //
+	private int ballY = 225; // ... //
 	private int diameter = 50;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
@@ -83,15 +95,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
-	private int playerOneY = 200;
+	private int playerOneY = 195;
 	private int playerOneWidth = 10;
-	private int playerOneHeight = 50;
+	private int playerOneHeight = 60;
 
 	/** Player 2's paddle: position and size */
 	private int playerTwoX = 480; // Doi chieu dai cua 2 thanh chan bang nhau
-	private int playerTwoY = 200;
+	private int playerTwoY = 195;
 	private int playerTwoWidth = 10;
-	private int playerTwoHeight = 50;
+	private int playerTwoHeight = 60;
 
 	/** Speed of the paddle - How fast the paddle move. */
 	private int paddleSpeed = 5;
@@ -186,7 +198,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	public void step() {
 
 		if (playing) {
-
 			/* Playing mode */
 
 			// move player 1
@@ -215,10 +226,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			 * was out yet
 			 */
 			int nextBallLeft = ballX + ballDeltaX;
-			int nextBallRight = ballX + diameter + ballDeltaX;
+			int nextBallRight = ballX + diameterMPlus + ballDeltaX;
 			// FIXME Something not quite right here
 			int nextBallTop = ballY + ballDeltaY;
-			int nextBallBottom = ballY + diameter + ballDeltaY;
+			int nextBallBottom = ballY + diameterMPlus + ballDeltaY;
 
 			// Player 1's paddle position
 			int playerOneRight = playerOneX + playerOneWidth;
@@ -243,6 +254,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				if (nextBallTop > playerOneBottom || nextBallBottom < playerOneTop) {
 
 					playerTwoScore++;
+					playerOneHeight = 60;
+					playerTwoHeight = 60;
+					iDimension = 1;
 					Sound.play("Sound/pingpongsound.wav"); // ghi diem se co am
 															// thanh
 					// Player 2 Win, restart the game
@@ -254,9 +268,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						// am thanh khi player 2 thang
 						Sound.play("Sound/Victory_Fanfare.wav");
 					}
-					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
+					ballX = 225; // qua bong di chuyen tu vi tri trung tam khi
 					// bat dau game
-					ballY = 240; // ...
+					ballY = 225; // ...
 					ballmove1 = true;
 					ballmove2 = false;
 				} else {
@@ -265,6 +279,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					// se bat lai
 					// am thanh khi cham vao paddle player 1
 					Sound.play("Sound/pingpongsound2.wav");
+					iDimension = 2;
 				}
 			}
 
@@ -272,8 +287,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (nextBallRight > playerTwoLeft) {
 				// is it going to miss the paddle?
 				if (nextBallTop > playerTwoBottom || nextBallBottom < playerTwoTop) {
-
 					playerOneScore++;
+					iDimension = 2;
+					playerOneHeight = 60;
+					playerTwoHeight = 60;
 					Sound.play("Sound/pingpongsound.wav");
 					// Player 1 Win, restart the game
 					if (playerOneScore == score) {
@@ -284,15 +301,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 						// am thanh khi player 1 thang
 						Sound.play("Sound/Victory_Fanfare.wav");
 					}
-					ballX = 240; // qua bong di chuyen tu vi tri trung tam khi
+					ballX = 225; // qua bong di chuyen tu vi tri trung tam khi
 					// bat dau game
-					ballY = 240; // ...
+					ballY = 225; // ...
 					ballmove1 = false;
 					ballmove2 = true;
 				} else {
 
 					// If the ball hitting the paddle, it will bounce back
 					ballDeltaX *= -1; // bong cham vao thanh chan cua player 2
+					iDimension = 1;
 					// se bat lai
 					// am thanh khi cham vao paddle player 2
 					Sound.play("Sound/pingpongsound2.wav");
@@ -313,8 +331,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					xObjectFL = ThreadLocalRandom.current().nextInt(100, 400 + 1);
 					yObjectFL = ThreadLocalRandom.current().nextInt(0, 400 + 1);
 					flagdrawObjectFL = true;
-					xcenterB = xObjectFL + diameter / 2;
-					ycenterB = yObjectFL + diameter / 2;
+					xcenterB = xObjectFL + diameterMPlus / 2;
+					ycenterB = yObjectFL + diameterMPlus / 2;
 
 				}
 
@@ -328,8 +346,65 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 		}
 
+		timeDisplayMPlus -= 1000 / 60;
+		if (timeDisplayMPlus < 0) {
+			if (!showRandom) {
+				showRandom = true;
+				iOptionRandom = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+				xRandom = ThreadLocalRandom.current().nextInt(100, 400 + 1);
+				yRandom = ThreadLocalRandom.current().nextInt(0, 400 + 1);
+			} else {
+				Point ballCenter = new Point(ballX + diameterMPlus / 2, ballY + diameterMPlus / 2);
+				Point ranCenter = new Point(xRandom + diameterMPlus / 2, yRandom + diameterMPlus / 2);
+				double distance2center = getPointDistance(ballCenter, ranCenter);
+				if (distance2center < (diameterMPlus / 2 + diameterMPlus / 2)) {
+					if (iOptionRandom == 1) {
+						if (iDimension == 1){
+							if (playerOneHeight >= 30) {
+								playerOneHeight -= 15;
+							} else {
+							}
+						} else{
+							if (playerTwoHeight >= 30) {
+								playerTwoHeight -= 15;
+							} else {
+							}
+						}
+						
+						showRandom = false;
+						timeDisplayMPlus = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+
+					} else if (iOptionRandom == 2) {
+						if (iDimension == 1){
+							if (playerOneHeight <= 120) {
+								playerOneHeight += 30;
+							} else {
+							} 
+						} else{
+							if (playerTwoHeight <= 120) {
+								playerTwoHeight += 30;
+							} else {
+							} 
+						}
+
+						showRandom = false;
+						timeDisplayMPlus = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+
+					}
+				}
+				if (timeDisplayMPlus < -10000) {
+					showRandom = false;
+					timeDisplayMPlus = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
+				}
+			}
+		}
+
 		// stuff has moved, tell this JPanel to repaint itself
 		repaint();
+	}
+
+	public double getPointDistance(Point p1, Point p2) {
+		return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 	}
 
 	/** Paint the game screen. */
@@ -405,14 +480,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// draw the ball
 			g.setColor(Color.RED);
 			if (NumTypeBall == 0) {
-				g.drawImage(imAmericanBall.getImage(), ballX, ballY, diameter, diameter, null);
+				g.drawImage(imAmericanBall.getImage(), ballX, ballY, diameterMPlus, diameterMPlus, null);
 			} else if (NumTypeBall == 1) {
-				g.drawImage(imBasketBall.getImage(), ballX, ballY, diameter, diameter, null);
+				g.drawImage(imBasketBall.getImage(), ballX, ballY, diameterMPlus, diameterMPlus, null);
 			} else if (NumTypeBall == 2) {
-				g.drawImage(imTennisBall.getImage(), ballX, ballY, diameter, diameter, null);
+				g.drawImage(imTennisBall.getImage(), ballX, ballY, diameterMPlus, diameterMPlus, null);
 			}
-			xcenterA = ballX + diameter / 2;
-			ycenterA = ballY + diameter / 2;
+			xcenterA = ballX + diameterMPlus / 2;
+			ycenterA = ballY + diameterMPlus / 2;
 			// color the paddles
 			if (NumPaddlesColor == 0) {
 				g.setColor(Color.WHITE);
@@ -429,44 +504,53 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (flagdrawObjectFL == true) {
 				// g.fillOval(xObjectFL, yObjectFL, diameter, diameter);
 				if (typeContentFL == 1) {
-					g.drawImage(imFastContent.getImage(), xObjectFL, yObjectFL, diameter, diameter, null);
-					if (Math.sqrt(Math.pow(xcenterA - xcenterB, 2) + Math.pow(ycenterA - ycenterB, 2)) <= diameter) {
+					g.drawImage(imFastContent.getImage(), xObjectFL, yObjectFL, diameterMPlus, diameterMPlus, null);
+					if (Math.sqrt(Math.pow(xcenterA - xcenterB, 2) + Math.pow(ycenterA - ycenterB, 2)) <= diameterMPlus) {
 						flagdrawObjectFL = false;
 						flagHadObjectFL = true;
 						timerofObjectF.start();
 					}
 				} else {
-					g.drawImage(imSlowContent.getImage(), xObjectFL, yObjectFL, diameter, diameter, null);
-					if (Math.sqrt(Math.pow(xcenterA - xcenterB, 2) + Math.pow(ycenterA - ycenterB, 2)) <= diameter) {
+					g.drawImage(imSlowContent.getImage(), xObjectFL, yObjectFL, diameterMPlus, diameterMPlus, null);
+					if (Math.sqrt(Math.pow(xcenterA - xcenterB, 2) + Math.pow(ycenterA - ycenterB, 2)) <= diameterMPlus) {
 						flagdrawObjectFL = false;
 						flagHadObjectFL = true;
 						timerofObjectL.start();
 					}
 				}
-
 			}
+			if (showRandom) {
+				if (iOptionRandom == 1) {
+					g.drawImage(imMinus.getImage(), xRandom, yRandom, diameterMPlus, diameterMPlus, null);
+					// g.fillOval(xRandom, yRandom, diameterRan, diameterRan);
+				} else{
+					g.drawImage(imPlus.getImage(), xRandom, yRandom, diameterMPlus, diameterMPlus, null);
+					// g.setColor(Color.BLUE);
+					// g.fillOval(xRandom, yRandom, diameterRan, diameterRan);
+				}
 
-		} else if (gameOver) {
+			} else if (gameOver) {
 
-			/* Show End game screen with winner name and score */
+				/* Show End game screen with winner name and score */
 
-			// Draw scores
-			// TODO Set Blue color
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.drawString(String.valueOf(playerOneScore), 100, 100);
-			g.drawString(String.valueOf(playerTwoScore), 400, 100);
+				// Draw scores
+				// TODO Set Blue color
+				g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+				g.drawString(String.valueOf(playerOneScore), 100, 100);
+				g.drawString(String.valueOf(playerTwoScore), 400, 100);
 
-			// Draw the winner name
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			if (playerOneScore > playerTwoScore) {
-				g.drawString(PlayerName1 + " Wins!", 165, 200);
-			} else {
-				g.drawString(PlayerName2 + " Wins!", 165, 200);
+				// Draw the winner name
+				g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+				if (playerOneScore > playerTwoScore) {
+					g.drawString(PlayerName1 + " Wins!", 165, 200);
+				} else {
+					g.drawString(PlayerName2 + " Wins!", 165, 200);
+				}
+
+				// Draw Restart message
+				g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+				// TODO Draw a restart message
 			}
-
-			// Draw Restart message
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
-			// TODO Draw a restart message
 		}
 	}
 
@@ -505,6 +589,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			ballX = 240; // qua bong di chuyen tu vi tri trung tam khi bat dau
 			// game
 			ballY = 240; // ...
+			playerOneHeight = 60;
+			playerTwoHeight = 60;
 		}
 	}
 
