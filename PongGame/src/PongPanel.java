@@ -72,8 +72,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 																// showscreen
 	ImageIcon bgInGame = new ImageIcon("Images/playing.png"); // background in
 																// game
-	ImageIcon bgp1win = new ImageIcon("Images/trumpWin.jpg");
-	ImageIcon bgp2win = new ImageIcon("Images/clintonWin.jpg");
+	ImageIcon bgp1win = new ImageIcon("Images/a.png");
+	ImageIcon bgp2win = new ImageIcon("Images/b.png");
 	ImageIcon imMinus = new ImageIcon("Images/minus.png");
 	ImageIcon imPlus = new ImageIcon("Images/plus.png");
 
@@ -92,7 +92,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int ballDeltaY = 3;
 
 	/** Score */
-	private int score = 5;
+	private int score = 1;
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
@@ -264,8 +264,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					if (playerTwoScore == score) {
 						playing = false;
 						gameOver = true;
-						playerOneScore = 0;
-						playerTwoScore = 0;
 						// am thanh khi player 2 thang
 						Sound.play("Sound/Victory_Fanfare.wav");
 					}
@@ -297,8 +295,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					if (playerOneScore == score) {
 						playing = false;
 						gameOver = true;
-						playerOneScore = 0;
-						playerTwoScore = 0;
 						// am thanh khi player 1 thang
 						Sound.play("Sound/Victory_Fanfare.wav");
 					}
@@ -551,11 +547,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				g.drawImage(bgp1win.getImage(), 0, 0, 500, 500, null);
 				
 				g.drawString(PlayerName1 + " Wins!", 165, 400);
-				g.drawString("Press 'Space' to reset the Game ", 50, 450);
 			} else {
 				g.drawImage(bgp2win.getImage(), 0, 0, 500, 500, null);
 				g.drawString(PlayerName2 + " Wins!", 165, 400);
-				g.drawString("Press 'Space' to reset the Game ", 50, 450);
 			}
 
 			// Draw Restart message
@@ -601,6 +595,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			ballY = 240; // ...
 			playerOneHeight = 60;
 			playerTwoHeight = 60;
+			playerOneScore = 0;
+			playerTwoScore = 0;
 		}
 	}
 
