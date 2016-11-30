@@ -72,7 +72,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 																// showscreen
 	ImageIcon bgInGame = new ImageIcon("Images/playing.png"); // background in
 																// game
-
+	ImageIcon bgp1win = new ImageIcon("Images/trumpWin.jpg");
+	ImageIcon bgp2win = new ImageIcon("Images/clintonWin.jpg");
 	ImageIcon imMinus = new ImageIcon("Images/minus.png");
 	ImageIcon imPlus = new ImageIcon("Images/plus.png");
 
@@ -540,13 +541,21 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
 			g.drawString(String.valueOf(playerTwoScore), 400, 100);
+			
 
 			// Draw the winner name
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
+			g.setColor(Color.RED);
+			
 			if (playerOneScore > playerTwoScore) {
-				g.drawString(PlayerName1 + " Wins!", 165, 200);
+				g.drawImage(bgp1win.getImage(), 0, 0, 500, 500, null);
+				
+				g.drawString(PlayerName1 + " Wins!", 165, 400);
+				g.drawString("Press 'Space' to reset the Game ", 50, 450);
 			} else {
-				g.drawString(PlayerName2 + " Wins!", 165, 200);
+				g.drawImage(bgp2win.getImage(), 0, 0, 500, 500, null);
+				g.drawString(PlayerName2 + " Wins!", 165, 400);
+				g.drawString("Press 'Space' to reset the Game ", 50, 450);
 			}
 
 			// Draw Restart message
