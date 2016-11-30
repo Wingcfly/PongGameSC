@@ -530,31 +530,29 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 					// g.setColor(Color.BLUE);
 					// g.fillOval(xRandom, yRandom, diameterRan, diameterRan);
 				}
-
-			} else if (gameOver) {
-
-				/* Show End game screen with winner name and score */
-
-				// Draw scores
-				// TODO Set Blue color
-				g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-				g.drawString(String.valueOf(playerOneScore), 100, 100);
-				g.drawString(String.valueOf(playerTwoScore), 400, 100);
-
-				// Draw the winner name
-				g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-				if (playerOneScore > playerTwoScore) {
-					g.drawString(PlayerName1 + " Wins!", 165, 200);
-				} else {
-					g.drawString(PlayerName2 + " Wins!", 165, 200);
-				}
-
-				// Draw Restart message
-				g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
-				// TODO Draw a restart message
 			}
-		}
+		} else if (gameOver) {
 
+			/* Show End game screen with winner name and score */
+
+			// Draw scores
+			// TODO Set Blue color
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+			g.drawString(String.valueOf(playerOneScore), 100, 100);
+			g.drawString(String.valueOf(playerTwoScore), 400, 100);
+
+			// Draw the winner name
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+			if (playerOneScore > playerTwoScore) {
+				g.drawString(PlayerName1 + " Wins!", 165, 200);
+			} else {
+				g.drawString(PlayerName2 + " Wins!", 165, 200);
+			}
+
+			// Draw Restart message
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+			// TODO Draw a restart message
+		}
 	}
 
 	public void keyTyped(KeyEvent e) {
