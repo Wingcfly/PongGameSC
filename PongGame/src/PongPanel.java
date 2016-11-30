@@ -310,8 +310,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				if (flagHadObjectFL == true) {
 
 				} else {
-					xObjectFL = ThreadLocalRandom.current().nextInt(50, 450 + 1);
-					yObjectFL = ThreadLocalRandom.current().nextInt(0, 470 + 1);
+					xObjectFL = ThreadLocalRandom.current().nextInt(100, 400 + 1);
+					yObjectFL = ThreadLocalRandom.current().nextInt(0, 400 + 1);
 					flagdrawObjectFL = true;
 					xcenterB = xObjectFL + diameter / 2;
 					ycenterB = yObjectFL + diameter / 2;
