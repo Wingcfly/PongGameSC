@@ -56,8 +56,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int timeDisplayMPlus;
 	private int diameterMPlus = 50;
 	private boolean showRandom;
-	private int iOptionRandom = 1; //cac tuy chon khi dung vao minus & plus
-	private int iDimension = 1; //chieu di cua ball
+	private int iOptionRandom = 1; // cac tuy chon khi dung vao minus & plus
+	private int iDimension = 1; // chieu di cua ball
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
@@ -91,7 +91,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	private int ballDeltaY = 3;
 
 	/** Score */
-	private int score = 50;
+	private int score = 5;
 
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
@@ -178,7 +178,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
-		setBackground(backgroundColor);
+		// setBackground(backgroundColor);
 
 		// listen to key presses
 		setFocusable(true);
@@ -359,32 +359,32 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				double distance2center = getPointDistance(ballCenter, ranCenter);
 				if (distance2center < (diameterMPlus / 2 + diameterMPlus / 2)) {
 					if (iOptionRandom == 1) {
-						if (iDimension == 1){
+						if (iDimension == 1) {
 							if (playerOneHeight >= 30) {
 								playerOneHeight -= 15;
 							} else {
 							}
-						} else{
+						} else {
 							if (playerTwoHeight >= 30) {
 								playerTwoHeight -= 15;
 							} else {
 							}
 						}
-						
+
 						showRandom = false;
 						timeDisplayMPlus = ThreadLocalRandom.current().nextInt(5, 15 + 1) * 1000;
 
 					} else if (iOptionRandom == 2) {
-						if (iDimension == 1){
+						if (iDimension == 1) {
 							if (playerOneHeight <= 120) {
 								playerOneHeight += 30;
 							} else {
-							} 
-						} else{
+							}
+						} else {
 							if (playerTwoHeight <= 120) {
 								playerTwoHeight += 30;
 							} else {
-							} 
+							}
 						}
 
 						showRandom = false;
@@ -505,14 +505,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				// g.fillOval(xObjectFL, yObjectFL, diameter, diameter);
 				if (typeContentFL == 1) {
 					g.drawImage(imFastContent.getImage(), xObjectFL, yObjectFL, diameterMPlus, diameterMPlus, null);
-					if (Math.sqrt(Math.pow(xcenterA - xcenterB, 2) + Math.pow(ycenterA - ycenterB, 2)) <= diameterMPlus) {
+					if (Math.sqrt(
+							Math.pow(xcenterA - xcenterB, 2) + Math.pow(ycenterA - ycenterB, 2)) <= diameterMPlus) {
 						flagdrawObjectFL = false;
 						flagHadObjectFL = true;
 						timerofObjectF.start();
 					}
 				} else {
 					g.drawImage(imSlowContent.getImage(), xObjectFL, yObjectFL, diameterMPlus, diameterMPlus, null);
-					if (Math.sqrt(Math.pow(xcenterA - xcenterB, 2) + Math.pow(ycenterA - ycenterB, 2)) <= diameterMPlus) {
+					if (Math.sqrt(
+							Math.pow(xcenterA - xcenterB, 2) + Math.pow(ycenterA - ycenterB, 2)) <= diameterMPlus) {
 						flagdrawObjectFL = false;
 						flagHadObjectFL = true;
 						timerofObjectL.start();
@@ -523,7 +525,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				if (iOptionRandom == 1) {
 					g.drawImage(imMinus.getImage(), xRandom, yRandom, diameterMPlus, diameterMPlus, null);
 					// g.fillOval(xRandom, yRandom, diameterRan, diameterRan);
-				} else{
+				} else {
 					g.drawImage(imPlus.getImage(), xRandom, yRandom, diameterMPlus, diameterMPlus, null);
 					// g.setColor(Color.BLUE);
 					// g.fillOval(xRandom, yRandom, diameterRan, diameterRan);
@@ -552,6 +554,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				// TODO Draw a restart message
 			}
 		}
+
 	}
 
 	public void keyTyped(KeyEvent e) {
