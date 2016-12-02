@@ -28,7 +28,7 @@ public class PlayerNameWindow extends JDialog {
 	JButton btnOk = new JButton("OK");
 	
 	public PlayerNameWindow(){
-		setSize(400, 190);
+		setSize(390, 160);
 		setTitle("PlayerName");
 		setLayout(null);
 		setLocationRelativeTo(null);
@@ -43,7 +43,7 @@ public class PlayerNameWindow extends JDialog {
 		txtPlayer1Name.setBounds(120, 10, 250, 30);
 		lblPlayer2.setBounds(10, 50, 100, 30);
 		txtPlayer2Name.setBounds(120, 50, 250, 30);
-		btnOk.setBounds(270, 100, 100, 30);
+		btnOk.setBounds(150, 90, 100, 30);
 		
 		txtPlayer1Name.setText(PongPanel.PlayerName1);
 		txtPlayer2Name.setText(PongPanel.PlayerName2);
