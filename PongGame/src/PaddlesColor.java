@@ -32,8 +32,8 @@ public class PaddlesColor extends JDialog {
 	JButton btnChoose = new JButton("Choose");
 
 	public PaddlesColor() {
-		setSize(500, 280);
-		setTitle("PaddlesColor");
+		setSize(300, 260);
+		setTitle("Change Paddles Color");
 		setLayout(null);
 		setLocationRelativeTo(null);
 		setModal(true);
@@ -56,7 +56,7 @@ public class PaddlesColor extends JDialog {
 		optBlue.setBounds(60, 80, 100, 30);
 		lblBlue.setBounds(10, 130, 50, 50);
 		optRed.setBounds(60, 140, 100, 30);
-		btnChoose.setBounds(350, 190, 100, 30);
+		btnChoose.setBounds(100, 190, 100, 30);
 		// default option
 		optWhite.setSelected(true);
 		btnChoose.addActionListener(new ActionListener() {
