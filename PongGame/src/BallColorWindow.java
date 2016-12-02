@@ -19,9 +19,9 @@ import javax.swing.JRadioButton;
  * 
  */
 public class BallColorWindow extends JDialog{
-	JRadioButton optAmericanBall = new JRadioButton("American Ball");
+	JRadioButton optAmericanBall = new JRadioButton("American Flag");
 	JRadioButton optTennis = new JRadioButton("Tennis");
-	JRadioButton optbasketball = new JRadioButton("basketball");
+	JRadioButton optbasketball = new JRadioButton("Basketball");
 	JLabel lblAmericanBall = new JLabel();
 	JLabel lblBasket = new JLabel();
 	JLabel lblTennis = new JLabel();
@@ -31,8 +31,8 @@ public class BallColorWindow extends JDialog{
 	ButtonGroup btnGroup = new ButtonGroup();
 	JButton btnChoose = new JButton("Choose");
 	public BallColorWindow(){
-		setSize(500, 280);
-		setTitle("BallTyle");
+		setSize(300, 260);
+		setTitle("Change Ball Type");
 		setLayout(null);
 		setLocationRelativeTo(null);
 		setModal(true);
@@ -53,7 +53,7 @@ public class BallColorWindow extends JDialog{
 		btnGroup.add(optbasketball);
 		
 		lblAmericanBall.setBounds(10, 10, 50, 50);
-		optAmericanBall.setBounds(60, 20, 100, 30);
+		optAmericanBall.setBounds(60, 20, 150, 30);
 		
 		
 		lblBasket.setBounds(10, 70, 50, 50);
@@ -62,7 +62,7 @@ public class BallColorWindow extends JDialog{
 		lblTennis.setBounds(10, 130, 50, 50);
 		optTennis.setBounds(60, 140, 100, 30);
 		
-		btnChoose.setBounds(350, 190, 100, 30);
+		btnChoose.setBounds(100, 190, 100, 30);
 		
 		//default option
 		optAmericanBall.setSelected(true);
